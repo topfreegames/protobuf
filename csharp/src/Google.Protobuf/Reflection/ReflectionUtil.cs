@@ -65,6 +65,15 @@ namespace Google.Protobuf.Reflection
             ForceInitialize<bool?>();
             ForceInitialize<SampleEnum>();
             SampleEnumMethod();
+
+            // Force initialization of internal enums for proper AOT
+            // compilation when using IL2CPP and .NET 3.5
+            ForceInitialize<FieldDescriptorProto.Types.Type>();
+            ForceInitialize<FieldDescriptorProto.Types.Label>();
+            ForceInitialize<FieldOptions.Types.CType>();
+            ForceInitialize<FieldOptions.Types.JSType>();
+            ForceInitialize<FileOptions.Types.OptimizeMode>();
+            ForceInitialize<MethodOptions.Types.IdempotencyLevel>();
         }
 
         internal static void ForceInitialize<T>() => new ReflectionHelper<IMessage, T>();
